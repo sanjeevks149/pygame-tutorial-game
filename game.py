@@ -1,5 +1,6 @@
 import sys
 import pygame
+from scripts.entities import PhysicsEntities
 
 class Game:
     def __init__(self):
@@ -10,15 +11,14 @@ class Game:
 
         self.clock = pygame.time.Clock()
 
-        self.image = pygame.image.load("data\images\clouds\cloud_1.png")
-
-        self.pos = [90,50]
-
-        self.movement = [False,False]
+        self.player = PhysicsEntities(self, 'player',(50,50),(8,15))
 
     def run(self):
         while True:
-            self.window.blit(self.image, self.pos)
+            self.window.fill((0,0,0))
+
+            
+            
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
@@ -27,12 +27,14 @@ class Game:
                     if event.key ==pygame.K_UP:
                         self.movement[0] = True
                     if event.key == pygame.K_DOWN:
-                        self.movement[1] = True
-                if event.type == pygame.KEYDOWN:
+                        self.movement[1] = True 
+                if event.type == pygame.KEYUP:
                     if event.key == pygame.K_UP:
                         self.movement[0] = False
                     if event.key ==  pygame.K_DOWN:
                         self.movement[1] = False
+            
+
             pygame.display.update()
             self.clock.tick(60)
 
